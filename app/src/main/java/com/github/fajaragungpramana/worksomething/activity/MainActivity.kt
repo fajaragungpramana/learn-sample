@@ -1,9 +1,8 @@
 package com.github.fajaragungpramana.worksomething.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.github.fajaragungpramana.worksomething.R
+import com.github.fajaragungpramana.worksomething.databinding.ActivityMainBinding
 import com.github.fajaragungpramana.worksomething.repository.FakeRepository
 import com.github.fajaragungpramana.worksomething.viewmodel.FakeViewModel
 
@@ -11,12 +10,18 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mViewModel: FakeViewModel
 
+    private lateinit var mViewBinding: ActivityMainBinding
+    val binding: ActivityMainBinding
+        get() = mViewBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mViewBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mViewModel = FakeViewModel(FakeRepository())
-        Log.d("FF", mViewModel.getPersonAndCar())
+
+        binding.tvGreeting.text = mViewModel.getPersonAndCar()
 
     }
 
